@@ -1,0 +1,7 @@
+#no se debe incluir los entornos virtuales
+venv/
+
+#pycache
+**/__pycache__/
+base_datos.db
+
