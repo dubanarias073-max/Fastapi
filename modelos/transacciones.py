@@ -7,5 +7,11 @@ class TransaccionBase(BaseModel):
     id_factura: int
 
 class TransaccionCrear(TransaccionBase):
+    pass
+
+class Transaccioneditar(TransaccionBase):
+    pass
+
+class TransaccionCrear(TransaccionBase):
     id: int | None = None
     #aqui va la relacion co el modelo cliente (solo un campo)
