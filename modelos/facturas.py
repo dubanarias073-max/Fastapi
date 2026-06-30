@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-from clientes import cliente
+from .clientes import cliente
 
 #El decorador @property proviene de python  y sirve para convertir un metodo  de una clase  en una propiedad de solo lectura
 #validacion pydantic v2 , @computed_field es un decorador que te permite definir propiedades o metodos que se calculan dinamicamente

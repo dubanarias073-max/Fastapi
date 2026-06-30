@@ -1,17 +1,23 @@
 from pydantic import BaseModel
 
-#crear el modelo transaccion( id, cantidad, vr _unitario, id_factura)
+# Modelo base con los atributos comunes
 class TransaccionBase(BaseModel):
     cantidad: int
     vr_unitario: float
     id_factura: int
 
+# Modelo utilizado para recibir datos al crear una transacción
 class TransaccionCrear(TransaccionBase):
     pass
 
-class Transaccioneditar(TransaccionBase):
-    pass
+# Modelo utilizado para actualizaciones parciales (PATCH)
+# Se vuelven todos los campos opcionales para permitir modificar solo lo necesario
+class Transaccioneditar(BaseModel):
+    cantidad: int | None = None
+    vr_unitario: float | None = None
+    id_factura: int | None = None
 
-class TransaccionCrear(TransaccionBase):
-    id: int | None = None
-    #aqui va la relacion co el modelo cliente (solo un campo)
+# Modelo completo que representa la estructura final en la lista
+class Transaccion(TransaccionBase):
+    id: int
+    id_cliente: int  
