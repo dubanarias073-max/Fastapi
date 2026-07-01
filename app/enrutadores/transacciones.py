@@ -1,13 +1,13 @@
 from fastapi import APIRouter, HTTPException, status
 
-from modelos.facturas import Factura
-from modelos.transacciones import (
+from app.modelos.facturas import Factura
+from app.modelos.transacciones import (
     Transaccion,
     TransaccionCrear,
     Transaccioneditar,
 )
 
-from listas import lista_transacciones, lista_facturas
+from app.listas import lista_transacciones, lista_facturas
 
 rutas_transacciones = APIRouter()
 
@@ -24,7 +24,7 @@ async def listar_transaccion(id_transaccion: int):
             return obj_transaccion
 
     raise HTTPException(
-        status_code=status.HTTP_400_BAD_REQUEST,
+        status_code=status.HTTP_404_NOT_FOUND,
         detail=f"La transaccion con id {id_transaccion}, no existe."
     )
 

@@ -1,9 +1,10 @@
 from fastapi import FastAPI
-from enrutadores import clientes
-from enrutadores import facturas
-from enrutadores import transacciones
+from app.enrutadores import clientes
+from app.enrutadores import facturas
+from app.enrutadores import transacciones
+from app.conexion_bd import crear_tablas
 
-app = FastAPI()
+app = FastAPI(lifespan=crear_tablas)
 
 # Incluir rutas
 app.include_router(clientes.rutas_clientes, tags=["Clientes"])
