@@ -5,3 +5,4 @@ venv/
 **/__pycache__/
 base_datos.db
 
+bd_clientes.sqlite3
