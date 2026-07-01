@@ -189,6 +189,7 @@ async def crear_transaccion(factura_id: int, datos_transaccion: TransaccionCrear
     transaccion_val.id = len(lista_transacciones) + 1
 
     lista_transacciones.append(transaccion_val)
+
     factura_encontrada.transacciones.append(transaccion_val)
 
     return transaccion_val

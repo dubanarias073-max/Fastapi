@@ -1,9 +1,18 @@
-# PROYECTO CLIENTES - FASTAPI
+# 🚀 API REST - Gestión de Clientes, Facturas y Transacciones
 
-## 👤 Información del Desarrollador
+## 👨‍💻 Desarrollador
 
-* **Nombre:** Duban Alejandro Arias Bejarano
-* **Ficha:** 3407184
+- **Nombre:** Duban Alejandro Arias Bejarano
+- **Programa:** ADSO
+- **Ficha:** 3407184
+
+---
+
+# 📖 Descripción
+
+Proyecto desarrollado con **FastAPI** y **SQLModel** para administrar clientes, facturas y transacciones mediante una API REST.
+
+La aplicación implementa una arquitectura modular separando los modelos de la base de datos y los enrutadores para facilitar el mantenimiento y la escalabilidad del proyecto.
 
 ---
 
@@ -12,55 +21,55 @@
 ```text
 FASTAPI/
 │
-├── models/                           
-│   └── cliente.py            
+├── app/
+│   ├── enrutadores/
+│   │   ├── clientes.py
+│   │   ├── facturas.py
+│   │   └── transacciones.py
+│   │
+│   ├── modelos/
+│   │   ├── clientes.py
+│   │   ├── facturas.py
+│   │   └── transacciones.py
+│   │
+│   ├── conexion_bd.py
+│   └── main.py
 │
-├── routers/                  
-│   └── clientes.py           
-│
-├── venv/                     
-├── base_datos.db             
-├── database.py               
-├── main.py                   
-├── readme.md                 
-└── requirements.txt          
+├── venv/
+├── .gitignore
+├── README.md
+└── requirements.txt
 ```
 
 ---
 
-# 📌 Descripción
+# 🛠 Tecnologías Utilizadas
 
-Proyecto desarrollado con FastAPI utilizando arquitectura modular, SQLite y SQLAlchemy.
-
-La API permite administrar:
-
-* Clientes
-* Facturas
-* Transacciones
-
-Incluye operaciones CRUD completas:
-
-* GET
-* POST
-* PUT
-* DELETE
+- Python 3.12+
+- FastAPI
+- SQLModel
+- Pydantic
+- Uvicorn
 
 ---
 
-# 🛠️ Tecnologías Utilizadas
+# ⚙ Instalación
 
-* Python
-* FastAPI
-* SQLAlchemy
-* SQLite
-* Pydantic
-* Uvicorn
+## 1. Clonar el repositorio
+
+```bash
+git clone <URL_DEL_REPOSITORIO>
+```
+
+Entrar al proyecto
+
+```bash
+cd FASTAPI
+```
 
 ---
 
-# 🚀 Instrucciones de Ejecución (Windows)
-
-## 1️⃣ Crear entorno virtual
+## 2. Crear el entorno virtual
 
 ```bash
 python -m venv venv
@@ -68,80 +77,128 @@ python -m venv venv
 
 ---
 
-## 2️⃣ Activar entorno virtual
+## 3. Activar el entorno virtual
+
+### Windows
 
 ```bash
 venv\Scripts\activate
 ```
 
----
-
-## 3️⃣ Instalar dependencias
+### Linux / macOS
 
 ```bash
-pip install "fastapi[standard]" sqlalchemy
+source venv/bin/activate
 ```
 
 ---
 
-## 4️⃣ Ejecutar servidor
+## 4. Instalar dependencias
 
 ```bash
-fastapi dev main.py
+pip install -r requirements.txt
 ```
 
 ---
 
-# 🌐 Documentación Swagger
+# ▶ Ejecutar el servidor
 
-Una vez ejecutado el servidor, ingresar a:
+Con FastAPI:
 
-```text
+```bash
+fastapi dev app/main.py
+```
+
+O utilizando Uvicorn:
+
+```bash
+uvicorn app.main:app --reload
+```
+
+---
+
+# 📚 Documentación
+
+Una vez iniciado el servidor, acceder a:
+
+### Swagger UI
+
+```
 http://127.0.0.1:8000/docs
+```
+
+### ReDoc
+
+```
+http://127.0.0.1:8000/redoc
 ```
 
 ---
 
 # 📌 Funcionalidades
 
-## 👥 Clientes
+## 👤 Clientes
 
-* Crear clientes
-* Consultar clientes
-* Actualizar clientes
-* Eliminar clientes
-
-## 🧾 Facturas
-
-* Crear facturas
-* Consultar facturas
-* Actualizar facturas
-* Eliminar facturas
-
-## 💳 Transacciones
-
-* Crear transacciones
-* Consultar transacciones
-* Actualizar transacciones
-* Eliminar transacciones
+- Crear clientes
+- Consultar todos los clientes
+- Consultar cliente por ID
+- Actualizar clientes
+- Eliminar clientes
 
 ---
 
-# 📄 requirements.txt
+## 🧾 Facturas
+
+- Crear facturas
+- Consultar facturas
+- Actualizar facturas
+- Eliminar facturas
+- Asociación con clientes
+
+---
+
+## 💳 Transacciones
+
+- Crear transacciones
+- Consultar transacciones
+- Actualizar transacciones
+- Eliminar transacciones
+- Asociación con facturas
+- Cálculo automático del valor total de cada factura
+
+---
+
+# 🗂 Arquitectura
+
+El proyecto está organizado siguiendo una estructura modular:
+
+- **app/modelos/** → Contiene los modelos de SQLModel.
+- **app/enrutadores/** → Contiene los endpoints de la API.
+- **conexion_bd.py** → Configuración de la conexión a la base de datos.
+- **main.py** → Punto de entrada de la aplicación.
+
+---
+
+# 📦 Dependencias
+
+Contenido del archivo **requirements.txt**
 
 ```txt
 fastapi[standard]
-sqlalchemy
-pydantic
+sqlmodel
 uvicorn
 ```
 
 ---
 
+# 📄 Licencia
 
+Proyecto desarrollado con fines académicos para el programa **Análisis y Desarrollo de Software (ADSO)** del **SENA**.
 
+---
 
-# ✅ Autor
+# ✨ Autor
 
 **Duban Alejandro Arias Bejarano**
-Ficha ADSO: **3407184**
+
+**ADSO - Ficha 3407184**
