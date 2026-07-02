@@ -15,3 +15,7 @@ class clienteeditar(clienteBase):
 
 class cliente(clienteBase, table=True):
     id:int | None = Field(default=None, primary_key=True)
+
+
+class ClienteLeer(clienteBase):
+    id: int

@@ -1,5 +1,6 @@
 from fastapi import APIRouter, HTTPException, status
 from sqlmodel import select
+from sqlalchemy.orm import selectinload
 
 from app.modelos.clientes import cliente
 from app.modelos.facturas import Factura, FacturaCrear, FacturaEditar, FacturaLeer
@@ -8,19 +9,30 @@ from app.conexion_bd import Sesion_dependencia
 rutas_factura = APIRouter()
 
 
-#endpoint para obtener todas las facturas
+#endpoint para obtener todas las facturas (con cliente y transacciones)
 @rutas_factura.get("/facturas", response_model=list[FacturaLeer])
 async def listar_facturas(sesion: Sesion_dependencia):
-    consulta = select(Factura)
+    consulta = select(Factura).options(
+        selectinload(Factura.cliente),
+        selectinload(Factura.transacciones),
+    )
     lista_facturas = sesion.exec(consulta).all()
     return lista_facturas
 
 
-#endpoint para obtener una factura por id
+#endpoint para obtener una factura por id (con cliente y transacciones)
 @rutas_factura.get("/facturas/{factura_id}", response_model=FacturaLeer)
 async def obtener_factura(factura_id: int, sesion: Sesion_dependencia):
 
-    factura_bd = sesion.get(Factura, factura_id)
+    consulta = (
+        select(Factura)
+        .where(Factura.id == factura_id)
+        .options(
+            selectinload(Factura.cliente),
+            selectinload(Factura.transacciones),
+        )
+    )
+    factura_bd = sesion.exec(consulta).first()
 
     if not factura_bd:
         raise HTTPException(
@@ -56,7 +68,18 @@ async def crear_factura(cliente_id: int, datos_factura: FacturaCrear, sesion: Se
     sesion.commit()
     sesion.refresh(factura_val)
 
-    return factura_val
+    #recargar con relaciones para que la respuesta traiga cliente y transacciones
+    consulta = (
+        select(Factura)
+        .where(Factura.id == factura_val.id)
+        .options(
+            selectinload(Factura.cliente),
+            selectinload(Factura.transacciones),
+        )
+    )
+    factura_completa = sesion.exec(consulta).first()
+
+    return factura_completa
 
 
 #endpoint para editar una factura
@@ -83,7 +106,18 @@ async def editar_factura(
     sesion.commit()
     sesion.refresh(factura_bd)
 
-    return factura_bd
+    #recargar con relaciones para que la respuesta traiga cliente y transacciones
+    consulta = (
+        select(Factura)
+        .where(Factura.id == factura_bd.id)
+        .options(
+            selectinload(Factura.cliente),
+            selectinload(Factura.transacciones),
+        )
+    )
+    factura_completa = sesion.exec(consulta).first()
+
+    return factura_completa
 
 
 #endpoint para eliminar una factura
@@ -93,7 +127,15 @@ async def eliminar_factura(
     sesion: Sesion_dependencia
 ):
 
-    factura_bd = sesion.get(Factura, factura_id)
+    consulta = (
+        select(Factura)
+        .where(Factura.id == factura_id)
+        .options(
+            selectinload(Factura.cliente),
+            selectinload(Factura.transacciones),
+        )
+    )
+    factura_bd = sesion.exec(consulta).first()
 
     if not factura_bd:
         raise HTTPException(

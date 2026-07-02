@@ -37,7 +37,7 @@ async def obtener_transaccion(id_transaccion: int, sesion: Sesion_dependencia):
 
 
 #endpoint para crear una transaccion
-@rutas_transacciones.post("/transacciones", response_model=TransaccionLeer)
+@rutas_transacciones.post("/transacciones", response_model=TransaccionLeer, status_code=status.HTTP_201_CREATED)
 async def crear_transaccion(
     factura_id: int,
     datos_transaccion: TransaccionCrear,
